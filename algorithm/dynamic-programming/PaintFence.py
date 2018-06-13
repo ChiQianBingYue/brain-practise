@@ -36,6 +36,6 @@ class Solution:
             return dp[n]
         if k == 1 and n >= 3:
             return 0
-        for i in range(2, n):
+        for _ in range(2, n):
             dp.append((dp[-1] + dp[-2]) * (k - 1))
         return dp[-1]
