@@ -28,10 +28,10 @@ Use p[i][j]  to cache if s[i:j] is a palindrome
 To get the answer, we first consider there is not palindrome in the string, so for string with length n,
 f should be [-1, 0, 1, 2, 3, ... , n - 1]
 
-Then we start from left to right, when new element with index i comes in, 
+Then we start from left to right, when new element with index j comes in, 
 we check if it is the same with each previous char from right to left(with index i),
-if so, and i,j is adjecent, or p[j + 1][i - 1] is True,
-f[i] shoud be min(f[i], f[j - 1] + 1), and we set p[i][j] to be True.
+if so, and i,j is adjecent(j - i < 2), or p[i + 1][j - 1] is True,
+f[i + 1] shoud be min(f[i + 1], f[j] + 1), and we set p[i][j] to be True.
 
 After this n^2 loop finish, we return last element in f.
 """
@@ -43,16 +43,15 @@ class Solution:
     def minCut(self, s):
         n = len(s)
         f = []
-        p = [[False for x in range(n)] for x in range(n)]
-        #the worst case is cutting by each char
-        for i in range(n+1):
-            f.append(i - 1) # the first one, f[n]=-1
-        for i in range(n):
-            for j in range(i, -1, -1):
-                if (s[i] == s[j] and (i - j < 2 or p[j + 1][i - 1])):
-                    p[j][i] = True
-                    f[i + 1] = min(f[i + 1], f[j] + 1)
-        return f[-1]
+        p = [[False for _ in range(n)] for _ in range(n)]
+        for i in range(n + 1):
+            f.append(i - 1)
+        for j in range(n):
+            for i in range(j, -1, -1):
+                if s[i] == s[j] and (j - i < 2 or p[i+1][j-1]):
+                    p[i][j] = True
+                    f[j + 1] = min(f[j + 1], f[i] + 1)
+        return f[n]
 
 s = Solution()
 s.minCut('a')
