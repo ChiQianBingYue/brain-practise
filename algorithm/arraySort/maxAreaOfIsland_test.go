@@ -1,4 +1,4 @@
-package P695MaxAreaOfIsland
+package arraySort
 
 import "testing"
 

@@ -1,4 +1,4 @@
-package P15ThreeSum
+package arraySort
 
 import (
 	"reflect"

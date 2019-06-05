@@ -1,4 +1,4 @@
-package P695MaxAreaOfIsland
+package arraySort
 
 func maxAreaOfIsland(grid [][]int) int {
 	if len(grid) == 0 || len(grid[0]) == 0 {
@@ -15,13 +15,6 @@ func maxAreaOfIsland(grid [][]int) int {
 		}
 	}
 	return ans
-}
-
-func max(x, y int) int {
-	if x < y {
-		return y
-	}
-	return x
 }
 
 type point struct {
