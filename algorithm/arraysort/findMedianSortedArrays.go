@@ -1,46 +1,44 @@
-package arraySort
+package arraysort
 
 import "fmt"
 
 func findMedianSortedArrays(nums1 []int, nums2 []int) float64 {
-	n1, n2 := nums1, nums2
-	l1, l2 := len(n1), len(n2)
+	l1, l2 := len(nums1), len(nums2)
 	if l1 > l2 {
 		l1, l2 = l2, l1
-		n1, n2 = n2, n1
+		nums1, nums2 = nums2, nums1
 	}
 	left, right := 0, l1
 	k := (l1 + l2 + 1) / 2
 	for left <= right {
 		i := left + (right-left)/2
 		j := k - i
-		if i > 0 && n1[i-1] > n2[j] {
+		fmt.Println(i, j)
+		if i > 0 && nums1[i-1] > nums2[j] {
 			right = i - 1
-		} else if i < l1 && n2[j-1] > n1[i] {
+		} else if i < l1 && nums1[i] < nums2[j-1] {
 			left = i + 1
 		} else {
-			// i is good
-			var lmax int
+			var maxl int
 			if i == 0 {
-				lmax = n2[j-1]
+				maxl = nums2[j-1]
 			} else if j == 0 {
-				lmax = n1[i-1]
+				maxl = nums1[i-1]
 			} else {
-				lmax = max(n2[j-1], n1[i-1])
+				maxl = max(nums1[i-1], nums2[j-1])
 			}
 			if (l1+l2)%2 == 1 {
-				return float64(lmax)
+				return float64(maxl)
 			}
-			var rmin int
+			var minr int
 			if i == l1 {
-				rmin = n2[j]
+				minr = nums2[j]
 			} else if j == l2 {
-				rmin = n1[i]
+				minr = nums1[i]
 			} else {
-				rmin = min(n1[i], n2[j])
+				minr = min(nums1[i], nums2[j])
 			}
-			fmt.Println(lmax, rmin)
-			return float64(lmax+rmin) / 2
+			return float64(maxl+minr) / 2
 		}
 	}
 	return 0.0

@@ -1,4 +1,4 @@
-package arraySort
+package arraysort
 
 func maxAreaOfIsland(grid [][]int) int {
 	if len(grid) == 0 || len(grid[0]) == 0 {

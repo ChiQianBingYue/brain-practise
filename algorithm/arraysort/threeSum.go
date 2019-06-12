@@ -1,4 +1,4 @@
-package arraySort
+package arraysort
 
 import (
 	"sort"
