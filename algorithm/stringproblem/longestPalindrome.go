@@ -3,7 +3,7 @@ package stringproblem
 func longestPalindrome(s string) int {
 	freqMap := make(map[byte]uint32)
 	for i := 0; i < len(s); i++ {
-		freqMap[s[i]] += 1
+		freqMap[s[i]]++
 	}
 	count := 0
 	for _, freq := range freqMap {
