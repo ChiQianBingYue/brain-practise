@@ -1,7 +1,5 @@
 package arraysort
 
-import "fmt"
-
 func findMedianSortedArrays(nums1 []int, nums2 []int) float64 {
 	l1, l2 := len(nums1), len(nums2)
 	if l1 > l2 {
@@ -13,7 +11,6 @@ func findMedianSortedArrays(nums1 []int, nums2 []int) float64 {
 	for left <= right {
 		i := left + (right-left)/2
 		j := k - i
-		fmt.Println(i, j)
 		if i > 0 && nums1[i-1] > nums2[j] {
 			right = i - 1
 		} else if i < l1 && nums1[i] < nums2[j-1] {

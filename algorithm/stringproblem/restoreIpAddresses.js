@@ -26,5 +26,3 @@ const restoreIpAddresses = s => {
   restoreIpAddressesRecursive(s, ans, 0, '');
   return ans;
 };
-
-console.log(restoreIpAddresses('010010'));

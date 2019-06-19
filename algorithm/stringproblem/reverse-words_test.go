@@ -1,4 +1,4 @@
-package P557ReverseWords
+package stringproblem
 
 import (
 	"testing"

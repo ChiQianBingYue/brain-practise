@@ -1,6 +1,8 @@
-package P557ReverseWords
+package stringproblem
 
-import "strings"
+import (
+	"strings"
+)
 
 func _reverse(words []string) []string {
 	for i, j := 0, len(words)-1; i < j; i, j = i+1, j-1 {

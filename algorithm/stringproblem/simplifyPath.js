@@ -81,5 +81,4 @@ function simplifyPath(path) {
   }
   return sb.isEmpty() ? '/' : sb.string();
 }
-console.log('ans', simplifyPath('/a//b////c/d//././/..'));
 module.exports = simplifyPath;

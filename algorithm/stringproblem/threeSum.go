@@ -1,4 +1,4 @@
-package arraysort
+package stringproblem
 
 import (
 	"sort"
@@ -37,6 +37,49 @@ func threeSum(nums []int) [][]int {
 							l++
 						}
 					}
+				}
+			}
+		}
+	}
+	return res
+}
+
+func threeSum2(nums []int) [][]int {
+	res := [][]int{}
+	if len(nums) < 3 {
+		return res
+	}
+	sort.Ints(nums)
+	if nums[0] > 0 || nums[len(nums)-1] < 0 {
+		return res
+	}
+	for i := 0; i < len(nums)-2; i++ {
+		if i > 0 && nums[i] == nums[i-1] {
+			continue
+		}
+		l, r := i+1, len(nums)-1
+		for l < r {
+			sum := nums[i] + nums[l] + nums[r]
+			switch {
+			case sum == 0:
+				res = append(res, []int{nums[i], nums[l], nums[r]})
+				r--
+				for l < r && nums[r] == nums[r+1] {
+					r--
+				}
+				l++
+				for l < r && nums[l] == nums[l-1] {
+					l++
+				}
+			case sum > 0:
+				r--
+				for l < r && nums[r] == nums[r+1] {
+					r--
+				}
+			case sum < 0:
+				l++
+				for l < r && nums[l] == nums[l-1] {
+					l++
 				}
 			}
 		}

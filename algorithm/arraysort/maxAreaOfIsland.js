@@ -48,31 +48,4 @@ const maxAreaOfIsland = grid => {
   return ans;
 };
 
-setTimeout(() => {
-  console.log('timer');
-}, 0);
-
-setImmediate(() => {
-  console.log('setImmediate');
-}, 0);
-
-// fs.open('./maxAreaOfIsland.go', (err, fd) => {
-//   console.log('fs opne');
-//   Promise.resolve().then(() => {
-//     console.log('fs resolve');
-//   });
-//   process.nextTick(() => {
-//     console.log('fs tick');
-//   });
-//   fs.close(fd, () => {
-//     console.log('fs close');
-//     Promise.resolve().then(() => {
-//       console.log('fs c resolve');
-//     });
-//     process.nextTick(() => {
-//       console.log('fs c tick');
-//     });
-//   });
-// });
-
 module.exports = maxAreaOfIsland;
