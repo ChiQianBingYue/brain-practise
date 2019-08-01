@@ -1,5 +1,10 @@
 package linkedlist
 
+import (
+	"strconv"
+	"strings"
+)
+
 /**
  * Definition for singly-linked list.
  * type ListNode struct {
@@ -25,6 +30,16 @@ func (l *ListNode) equal(b *ListNode) bool {
 		return false
 	}
 	return true
+}
+
+func (l *ListNode) print() string {
+	var sb strings.Builder
+	for l != nil {
+		sb.WriteString(strconv.Itoa(l.Val))
+		sb.WriteString(",")
+		l = l.Next
+	}
+	return sb.String()
 }
 
 func reverseList(head *ListNode) *ListNode {
