@@ -4,34 +4,30 @@ func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
 	resDummy := &ListNode{}
 	cur := resDummy
 	leading := 0
-	for l1 != nil && l2 != nil {
-		sum := l1.Val + l2.Val + leading
+	for l1 != nil || l2 != nil {
+		var v1, v2 int
+		if l1 == nil {
+			v1 = 0
+		} else {
+			v1 = l1.Val
+		}
+		if l2 == nil {
+			v2 = 0
+		} else {
+			v2 = l2.Val
+		}
+		sum := v1 + v2 + leading
 		cur.Next = &ListNode{
 			Val:  sum % 10,
 			Next: nil,
 		}
 		leading = sum / 10
-		l1, l2 = l1.Next, l2.Next
-		cur = cur.Next
-	}
-	for l1 != nil {
-		sum := l1.Val + leading
-		cur.Next = &ListNode{
-			Val:  sum % 10,
-			Next: nil,
+		if l1 != nil {
+			l1 = l1.Next
 		}
-		l1 = l1.Next
-		leading = sum / 10
-		cur = cur.Next
-	}
-	for l2 != nil {
-		sum := l2.Val + leading
-		cur.Next = &ListNode{
-			Val:  sum % 10,
-			Next: nil,
+		if l2 != nil {
+			l2 = l2.Next
 		}
-		l2 = l2.Next
-		leading = sum / 10
 		cur = cur.Next
 	}
 	if leading == 1 {
