@@ -21,6 +21,14 @@ func (l *ListNode) equal(b *ListNode) bool {
 	return true
 }
 
+func (l *ListNode) getTail() *ListNode {
+	cur := l
+	for cur != nil && cur.Next != nil {
+		cur = cur.Next
+	}
+	return cur
+}
+
 func sliceToListNode(slice []int) *ListNode {
 	head := &ListNode{}
 	cur := head
