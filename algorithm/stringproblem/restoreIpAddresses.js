@@ -26,3 +26,5 @@ const restoreIpAddresses = s => {
   restoreIpAddressesRecursive(s, ans, 0, '');
   return ans;
 };
+
+export default restoreIpAddresses;
