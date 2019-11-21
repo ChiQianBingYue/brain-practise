@@ -353,23 +353,25 @@ int howManyBits(int x)
  */
 unsigned floatScale2(unsigned uf)
 {
-  // 0x7f800000 0b 0111 1111 1000 0000 0000 0000 0000 0000
-  int exp = (uf & 0x7f800000) >> 23;
-  int sign = (uf & 1 << 31);
+  int expMask = 0xff << 23;
+  int exp = (uf & expMask) >> 23;
+  int sign = uf & (1 << 31);
 
   if (exp == 0)
+    // subnormal, if shift change to normal, equation still work
     return uf << 1 | sign;
 
   if (exp == 255)
+    // infinity or NaN
     return uf;
 
   exp++;
 
   if (exp == 255)
-    return 0x7f800000 | sign;
+    // infinity
+    return expMask | sign;
 
-  // 0x807fffff 0b 1000 0000 0111 1111 1111 1111 1111 1111
-  return (exp << 23) | (uf & 0x807fffff);
+  return (exp << 23) | (uf & ~expMask);
 }
 /* 
  * floatFloat2Int - Return bit-level equivalent of expression (int) f
@@ -395,7 +397,6 @@ int floatFloat2Int(unsigned uf)
   // 取指数位并消除 bias
   exp = ((uf & 0x7f800000) >> 23) - 127;
 
-
   if (exp > 31)
     // int overflow or infinity
     return 0x80000000;
@@ -404,7 +405,6 @@ int floatFloat2Int(unsigned uf)
   // fraction < 2, 结果位于　0 ~ 1, -1 ~ 0, 向下取整, 为０
   if (exp < 0)
     return 0;
-
 
   // 1.fraction, 取23位并在最前方补一位
   frac = (uf & 0x007fffff) | 0x00800000;
@@ -441,5 +441,11 @@ int floatFloat2Int(unsigned uf)
  */
 unsigned floatPower2(int x)
 {
-  return 2;
+  int INF = 0xff << 23;
+  int exp = x + 127;
+  if (exp <= 0)
+    return 0;
+  if (exp >= 255)
+    return INF;
+  return exp << 23;
 }
