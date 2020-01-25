@@ -8,7 +8,11 @@ import (
 func (l *ListNode) print() string {
 	var sb strings.Builder
 	for l != nil {
-		sb.WriteString(strconv.Itoa(l.Val))
+		s := strconv.Itoa(l.Val)
+		if s == "" {
+			s = "nil"
+		}
+		sb.WriteString(s)
 		sb.WriteString(",")
 		l = l.Next
 	}

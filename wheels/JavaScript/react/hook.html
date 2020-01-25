@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Hello World</title>
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+
+    <!-- Don't use this in production: -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  </head>
+
+  <body>
+    <div id="root"></div>
+    <script type="text/babel">
+      let memorizedState = []; // hooks 存放在这个数组
+      let cursor = 0; // 当前 memorizedState 下标
+
+      function useState(initialValue) {
+        memorizedState[cursor] = memorizedState[cursor] || initialValue;
+        const currentCursor = cursor;
+        function setState(newState) {
+          memorizedState[currentCursor] = newState;
+          render();
+        }
+        return [memorizedState[cursor++], setState]; // 返回当前 state，并把 cursor 加 1
+      }
+
+      function useEffect(callback, depArray) {
+        const hasNoDeps = !depArray;
+        const deps = memorizedState[cursor];
+        const hasChangedDeps = deps ? !depArray.every((el, i) => el === deps[i]) : true;
+        if (hasNoDeps || hasChangedDeps) {
+          callback();
+          memorizedState[cursor] = depArray;
+        }
+        cursor++;
+      }
+
+      function App() {
+        const [count, setCount] = useState(0);
+        const [username, setUsername] = useState('fan');
+        useEffect(() => {
+          console.log(count);
+        }, [count]);
+        useEffect(() => {
+          console.log(username);
+        }, [username]);
+        return (
+          <div>
+            <div>{count}</div>
+            <button
+              onClick={() => {
+                setCount(count + 1);
+              }}
+            >
+              点击
+            </button>
+            <div>{username}</div>
+            <button
+              onClick={() => {
+                setUsername(username + ' hello');
+              }}
+            >
+              点击
+            </button>
+          </div>
+        );
+      }
+
+      const rootElement = document.getElementById('root');
+
+      function render() {
+        cursor = 0;
+        ReactDOM.render(<App />, rootElement);
+      }
+      render();
+    </script>
+    <!--
+      Note: this page is a great way to try React but it's not suitable for production.
+      It slowly compiles JSX with Babel in the browser and uses a large development build of React.
+
+      Read this section for a production-ready setup with JSX:
+      https://reactjs.org/docs/add-react-to-a-website.html#add-jsx-to-a-project
+
+      In a larger project, you can use an integrated toolchain that includes JSX instead:
+      https://reactjs.org/docs/create-a-new-react-app.html
+
+      You can also use React without JSX, in which case you can remove Babel:
+      https://reactjs.org/docs/react-without-jsx.html
+    -->
+  </body>
+</html>

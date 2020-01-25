@@ -18,11 +18,11 @@ func changeAddr(foo *Foo) {
 	fmt.Printf("param changed %p, %p\n", foo, &foo)
 }
 
-func main() {
-	a := &Foo{name: "a"}
-	fmt.Printf("a1 %p, %p\n", a, &a)
-	a.changeAddr()
-	fmt.Printf("a2 %p, %p\n", a, &a)
-	changeAddr(a)
-	fmt.Printf("a3 %p, %p\n", a, &a)
-}
+// func main() {
+// 	a := &Foo{name: "a"}
+// 	fmt.Printf("a1 %p, %p\n", a, &a)
+// 	a.changeAddr()
+// 	fmt.Printf("a2 %p, %p\n", a, &a)
+// 	changeAddr(a)
+// 	fmt.Printf("a3 %p, %p\n", a, &a)
+// }
